@@ -1,12 +1,23 @@
 #!/bin/bash
 
 fonts=("3270" "FiraCode" "Hack" "IntelOneMono" "JetBrainsMono" "Meslo" "SpaceMono")
+deps=("wget" "unzip" "curl")
 version=3.0.2
 
 # Install deps
-which wget | apt -y install wget
-which unzip | apt -y install unzip
-which curl | apt -y install curl
+index=0
+for dep in "${deps[@]}"
+do
+	if which $dep; then
+		unset 'deps[index]'
+	fi
+	let index++
+done
+
+if [ ${#deps[@]} != 0 ]; then
+	echo "Missing deps ${deps[@]}"
+	exit 1
+fi
 
 # Download fonts
 for value in "${fonts[@]}"
