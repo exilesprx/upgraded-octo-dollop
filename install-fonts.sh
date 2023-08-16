@@ -1,7 +1,7 @@
 #!/bin/bash
 
 fonts=("3270" "FiraCode" "Hack" "IntelOneMono" "JetBrainsMono" "Meslo" "SpaceMono")
-deps=("wget" "unzip" "curl")
+deps=("wget" "unzip")
 version=3.0.2
 
 # Install deps
