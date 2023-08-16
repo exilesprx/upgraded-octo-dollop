@@ -8,7 +8,7 @@ version=3.0.2
 index=0
 for dep in "${deps[@]}"
 do
-	if which $dep; then
+	if [[ -x "$(command -v $dep)" ]]; then
 		unset 'deps[index]'
 	fi
 	let index++
