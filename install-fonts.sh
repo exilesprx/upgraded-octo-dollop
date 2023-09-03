@@ -19,6 +19,10 @@ if [[ ${#deps[@]} != 0 ]]; then
 	exit 1
 fi
 
+if [[ ! -d "/usr/local/share/fonts" ]]; then
+  mkdir -p /usr/local/share/fonts
+fi
+
 # Download fonts
 for value in "${fonts[@]}"
 do
