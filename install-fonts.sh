@@ -28,5 +28,6 @@ for value in "${fonts[@]}"
 do
 	wget -O $HOME/Downloads/$value.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v$version/$value.zip
 	unzip $HOME/Downloads/$value.zip -d /usr/local/share/fonts/$value/
+	rm -f $HOME/Downloads/$value.zip
 done
 fc-cache -v
