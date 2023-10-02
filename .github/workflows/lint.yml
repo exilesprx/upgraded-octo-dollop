@@ -3,7 +3,7 @@ name: Lint script
 on:
   push:
     branches:
-      - 'main'
+      - '*'
 
 jobs:
   lint:
