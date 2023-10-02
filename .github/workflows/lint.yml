@@ -1,0 +1,19 @@
+name: Lint script
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  lint:
+    runs_on: ubuntu-latest
+    container: debian:bookworm-20230919-slim
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install shellcheck
+        run: apt-get -y install shellcheck
+
+      - name: Lint file
+        run: shellcheck install-fonts.sh
