@@ -23,6 +23,9 @@ if [[ ! -d "/usr/local/share/fonts" ]]; then
   mkdir -p /usr/local/share/fonts
 fi
 
+# add write permissions for user
+sudo chmod o+w /usr/local/share/fonts
+
 # Download fonts
 for value in "${fonts[@]}"
 do
@@ -30,4 +33,8 @@ do
 	unzip $HOME/Downloads/$value.zip -d /usr/local/share/fonts/$value/
 	rm -f $HOME/Downloads/$value.zip
 done
+
+# remove write permissions
+sudo chmod o-w /usr/local/share/fonts
+
 fc-cache -v
