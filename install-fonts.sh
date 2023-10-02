@@ -25,6 +25,7 @@ if [[ ! -d "$fontdir" ]]; then
 fi
 
 # add write permissions for user
+printf "Prompting for write permissions to $fontdir \n"
 sudo chmod o+w $fontdir
 
 # Download fonts
