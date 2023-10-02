@@ -3,6 +3,7 @@
 fonts=("3270" "FiraCode" "Hack" "IntelOneMono" "JetBrainsMono" "Meslo" "SpaceMono")
 deps=("wget" "unzip")
 version=3.0.2
+fontdir=/usr/local/share/fonts
 
 # Install deps
 index=0
@@ -19,22 +20,23 @@ if [[ ${#deps[@]} != 0 ]]; then
 	exit 1
 fi
 
-if [[ ! -d "/usr/local/share/fonts" ]]; then
-  mkdir -p /usr/local/share/fonts
+if [[ ! -d "$fontdir" ]]; then
+  mkdir -p $fontdir
 fi
 
 # add write permissions for user
-sudo chmod o+w /usr/local/share/fonts
+printf "Prompting for write permissions to $fontdir \n"
+sudo chmod o+w $fontdir
 
 # Download fonts
 for value in "${fonts[@]}"
 do
 	wget -O $HOME/Downloads/$value.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v$version/$value.zip
-	unzip $HOME/Downloads/$value.zip -d /usr/local/share/fonts/$value/
+	unzip $HOME/Downloads/$value.zip -d $fontdir/$value/
 	rm -f $HOME/Downloads/$value.zip
 done
 
 # remove write permissions
-sudo chmod o-w /usr/local/share/fonts
+sudo chmod o-w $fontdir
 
 fc-cache -v
