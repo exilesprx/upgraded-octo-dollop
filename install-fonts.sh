@@ -9,10 +9,10 @@ fontdir=/usr/local/share/fonts
 index=0
 for dep in "${deps[@]}"
 do
-	if [[ -x "$(command -v $dep)" ]]; then
+	if [[ -x "$(command -v "$dep")" ]]; then
 		unset 'deps[index]'
 	fi
-	let index++
+	(( index++)) || true
 done
 
 if [[ ${#deps[@]} != 0 ]]; then
@@ -25,15 +25,15 @@ if [[ ! -d "$fontdir" ]]; then
 fi
 
 # add write permissions for user
-printf "Prompting for write permissions to $fontdir \n"
+printf "Prompting for write permissions to %s \n" $fontdif
 sudo chmod o+w $fontdir
 
 # Download fonts
 for value in "${fonts[@]}"
 do
-	wget -O $HOME/Downloads/$value.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v$version/$value.zip
-	unzip $HOME/Downloads/$value.zip -d $fontdir/$value/
-	rm -f $HOME/Downloads/$value.zip
+	wget -O "$HOME"/Downloads/"$value".zip https://github.com/ryanoasis/nerd-fonts/releases/download/v"$version"/"$value".zip
+	unzip "$HOME"/Downloads/"$value".zip -d "$fontdir"/"$value"/
+	rm -f "$HOME"/Downloads/"$value".zip
 done
 
 # remove write permissions
