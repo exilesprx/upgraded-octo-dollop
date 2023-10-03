@@ -16,7 +16,7 @@ do
 done
 
 if [[ ${#deps[@]} != 0 ]]; then
-	echo "Missing deps ${deps[@]}"
+	echo "Missing deps" "${deps[@]}"
 	exit 1
 fi
 
@@ -25,7 +25,7 @@ if [[ ! -d "$fontdir" ]]; then
 fi
 
 # add write permissions for user
-printf "Prompting for write permissions to %s \n" $fontdif
+printf "Prompting for write permissions to %s \n" "$fontdir"
 sudo chmod o+w $fontdir
 
 # Download fonts
