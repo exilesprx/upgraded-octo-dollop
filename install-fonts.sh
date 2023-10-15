@@ -21,7 +21,8 @@ if [[ ${#deps[@]} != 0 ]]; then
 fi
 
 if [[ ! -d "$fontdir" ]]; then
-  mkdir -p $fontdir
+  printf "Prompting to create directory %s \n" "$fontdir"
+  sudo mkdir -p $fontdir
 fi
 
 # add write permissions for user
