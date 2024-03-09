@@ -34,7 +34,7 @@ for value in "${fonts[@]}"; do
 	## remove existing directory
 	if [[ -d "$fontdir/$value" ]]; then
 		echo "Removing existing directory $fontdir/$value"
-		rm -rf "$fontdir"/"$value"
+		rm -rf "${fontdir:?}"/"${value:?}"
 	fi
 	unzip "$HOME"/Downloads/"$value".zip -d "$fontdir"/"$value"/
 	rm -f "$HOME"/Downloads/"$value".zip
