@@ -2,7 +2,7 @@
 
 fonts=("3270" "FiraCode" "Hack" "IntelOneMono" "JetBrainsMono" "Meslo" "SpaceMono")
 deps=("wget" "unzip")
-version=3.1.1
+version=3.2.1
 fontdir=/usr/local/share/fonts
 
 # Install deps
