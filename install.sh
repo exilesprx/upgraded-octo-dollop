@@ -1,12 +1,12 @@
 #!/bin/bash
 
-fonts=("3270" "FiraCode" "Hack" "IntelOneMono" "JetBrainsMono" "Meslo" "SpaceMono")
+defaults=("3270" "FiraCode" "Hack" "IntelOneMono" "JetBrainsMono" "Meslo" "SpaceMono")
 deps=("wget" "unzip")
 version=3.2.1
 fontdir=/usr/local/share/fonts
 
 check_deps() {
-	index=0
+	local index=0
 	for dep in "${deps[@]}"; do
 		if [[ -x "$(command -v "$dep")" ]]; then
 			unset 'deps[index]'
@@ -22,40 +22,51 @@ check_deps() {
 
 create_dir() {
 	if [[ ! -d "$fontdir" ]]; then
-		printf "Prompting to create directory %s \n" "$fontdir"
+		printf "Create directory %s \n" "$fontdir"
 		sudo mkdir -p $fontdir
 	fi
-}
 
-set_permissions() {
-	printf "Prompting for write permissions to %s \n" "$fontdir"
+	printf "Set write permissions to %s \n" "$fontdir"
 	sudo chmod o+w $fontdir
 }
 
 install_fonts() {
-	for value in "${fonts[@]}"; do
-		wget -O "$HOME"/Downloads/"$value".zip https://github.com/ryanoasis/nerd-fonts/releases/download/v"$version"/"$value".zip
-		if [[ -d "$fontdir/$value" ]]; then
-			echo "Removing existing directory $fontdir/$value"
-			sudo rm -rf "${fontdir:?}"/"${value:?}"
+	local fonts=("$@")
+	printf "Installing fonts %s \n" "${fonts[@]}"
+	for font in "${fonts[@]}"; do
+		if wget -q --spider https://github.com/ryanoasis/nerd-fonts/releases/download/v"$version"/"$font".zip; then
+			wget -O "$HOME"/Downloads/"$font".zip https://github.com/ryanoasis/nerd-fonts/releases/download/v"$version"/"$font".zip
+		else
+			printf "Font %s not found \n" "$font"
+			continue
 		fi
-		unzip "$HOME"/Downloads/"$value".zip -d "$fontdir"/"$value"/
-		rm -f "$HOME"/Downloads/"$value".zip
+
+		if [[ -d "$fontdir/$font" ]]; then
+			echo "Removing existing directory $fontdir/$font"
+			sudo rm -rf "${fontdir:?}"/"${font:?}"
+		fi
+		unzip "$HOME"/Downloads/"$font".zip -d "$fontdir"/"$font"/
+		rm -f "$HOME"/Downloads/"$font".zip
 	done
 }
 
-reset_permissions_and_cache() {
+reset_cache() {
 	sudo chmod o-w $fontdir
 	fc-cache -v
 	echo "Fonts installed successfully"
 }
 
 main() {
+	if [[ $# -eq 0 ]]; then
+		local fonts=("${defaults[@]}")
+	else
+		local fonts=("$@")
+	fi
+
 	check_deps
 	create_dir
-	set_permissions
-	install_fonts
-	reset_permissions_and_cache
+	install_fonts "${fonts[@]}"
+	reset_cache
 }
 
 main "$@"
