@@ -43,7 +43,7 @@ install_fonts() {
 
 		if [[ -d "$fontdir/$font" ]]; then
 			echo "Removing existing directory $fontdir/$font"
-			sudo rm -rf "${fontdir:?}"/"${font:?}"
+			sudo rm -rf "${fontdir:?Font directory is required}"/"${font:?Font is required}"
 		fi
 		unzip "$HOME"/Downloads/"$font".zip -d "$fontdir"/"$font"/
 		rm -f "$HOME"/Downloads/"$font".zip
