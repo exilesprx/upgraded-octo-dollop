@@ -13,13 +13,26 @@ Before running the script, ensure you have the following dependencies installed:
 
 1. Clone the repository or download the script directly.
 2. Make the script executable:
-   ```sh
-   chmod +x font_installer.sh
-   ```
+
+```bash
+chmod +x font_installer.sh
+```
+
+3. Run the script with the desired options.
 
 ## Usage
 
 Run the script with the fonts you want to install. If no fonts are specified, default fonts will be installed.
+
+```bash
+./install.sh [OPTIONS] [FONTS...]
+```
+
+### Options
+
+- `-h, --help`: Show the help message and exit.
+
+## Examples
 
 Install the default fonts:
 
@@ -32,10 +45,6 @@ Install specific fonts:
 ```bash
 ./font_installer.sh Hack JetBrainsMono
 ```
-
-### Options
-
-- `-h, --help`: Show the help message and exit.
 
 ## Script Overview
 
@@ -56,3 +65,7 @@ You can customize the script by modifying:
 ## Notes
 
 Ensure you have appropriate permissions to execute and modify system directories (sudo might be required).
+
+## License
+
+This project is licensed under the MIT License.
