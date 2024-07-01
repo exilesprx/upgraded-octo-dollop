@@ -5,6 +5,26 @@ deps=("wget" "unzip")
 version=3.2.1
 fontdir=/usr/local/share/fonts
 
+help() {
+	echo "Font Installer Script"
+	echo
+	echo "Usage: ./font_installer.sh [OPTIONS] [FONT1 FONT2 ...]"
+	echo
+	echo "Options:"
+	echo "  -h, --help           Show this help message and exit"
+	echo
+	echo "Fonts:"
+	echo "  FONT1 FONT2 ...      Specify fonts to install (default: ${defaults[*]})"
+	echo
+	echo "Examples:"
+	echo "  ./font_installer.sh Hack JetBrainsMono"
+	echo "  ./font_installer.sh -h"
+	echo
+	echo "Notes:"
+	echo "  - Ensure 'wget' and 'unzip' are installed and executable."
+	echo "  - Script may require sudo permissions to modify system directories."
+}
+
 check_deps() {
 	local index=0
 	for dep in "${deps[@]}"; do
@@ -58,10 +78,27 @@ reset_cache() {
 
 main() {
 	if [[ $# -eq 0 ]]; then
-		local fonts=("${defaults[@]}")
-	else
-		local fonts=("$@")
+		help
+		exit 1
 	fi
+
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		-h | --help)
+			help
+			exit 0
+			;;
+		-*)
+			echo "Unknown option: $1"
+			help
+			exit 1
+			;;
+		*)
+			fonts+=("$1")
+			;;
+		esac
+		shift
+	done
 
 	check_deps
 	create_dir
