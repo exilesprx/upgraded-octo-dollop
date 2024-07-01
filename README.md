@@ -9,22 +9,33 @@ Before running the script, ensure you have the following dependencies installed:
 - `wget`
 - `unzip`
 
+## Installation
+
+1. Clone the repository or download the script directly.
+2. Make the script executable:
+   ```sh
+   chmod +x font_installer.sh
+   ```
+
 ## Usage
 
-1. Clone this repository or download the script directly.
-2. Make the script executable:
+Run the script with the fonts you want to install. If no fonts are specified, default fonts will be installed.
+
+Install the default fonts:
 
 ```bash
-chmod +x font_installer.sh
+./font_installer.sh
 ```
 
-Run the script with the fonts you want to install (optional, defaults are predefined):
+Install specific fonts:
 
 ```bash
-./font_installer.sh [font1 font2 ...]
+./font_installer.sh Hack JetBrainsMono
 ```
 
-If no fonts are specified, default fonts will be installed.
+### Options
+
+- `-h, --help`: Show the help message and exit.
 
 ## Script Overview
 
@@ -45,4 +56,3 @@ You can customize the script by modifying:
 ## Notes
 
 Ensure you have appropriate permissions to execute and modify system directories (sudo might be required).
-This script assumes internet connectivity for downloading fonts from GitHub.
