@@ -22,7 +22,6 @@ help() {
 	echo
 	echo "Notes:"
 	echo "  - Ensure 'wget' and 'unzip' are installed and executable."
-	echo "  - Script may require sudo permissions to modify system directories."
 }
 
 check_deps() {
@@ -43,11 +42,11 @@ check_deps() {
 create_dir() {
 	if [[ ! -d "$fontdir" ]]; then
 		printf "Create directory %s \n" "$fontdir"
-		sudo mkdir -p $fontdir
+		mkdir -p $fontdir
 	fi
 
 	printf "Set write permissions to %s \n" "$fontdir"
-	sudo chmod o+w $fontdir
+	chmod o+w $fontdir
 }
 
 install_fonts() {
@@ -63,7 +62,7 @@ install_fonts() {
 
 		if [[ -d "$fontdir/$font" ]]; then
 			echo "Removing existing directory $fontdir/$font"
-			sudo rm -rf "${fontdir:?Font directory is required}"/"${font:?Font is required}"
+			rm -rf "${fontdir:?Font directory is required}"/"${font:?Font is required}"
 		fi
 		unzip "$HOME"/Downloads/"$font".zip -d "$fontdir"/"$font"/
 		rm -f "$HOME"/Downloads/"$font".zip
@@ -71,9 +70,17 @@ install_fonts() {
 }
 
 reset_cache() {
-	sudo chmod o-w $fontdir
+	chmod o-w $fontdir
 	fc-cache -v
 	echo "Fonts installed successfully"
+}
+
+check_user() {
+  if [ "$(id -u)" -ne 0 ]; then
+    echo "This script must be run as root. Please use 'sudo $0' or log in as root."
+    echo "Note: if you run as root, the installed Zig and ZLS will be owned by root."
+    exit 1
+  fi
 }
 
 main() {
@@ -100,6 +107,7 @@ main() {
 		shift
 	done
 
+  check_user
 	check_deps
 	create_dir
 	install_fonts "${fonts[@]}"
