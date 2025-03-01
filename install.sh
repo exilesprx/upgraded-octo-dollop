@@ -80,7 +80,6 @@ reset_cache() {
 check_user() {
   if [ "$(id -u)" -ne 0 ]; then
     echo "This script must be run as root. Please use 'sudo $0' or log in as root."
-    echo "Note: if you run as root, the installed Zig and ZLS will be owned by root."
     exit 1
   fi
 }
