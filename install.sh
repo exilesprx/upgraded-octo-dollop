@@ -1,10 +1,11 @@
 #!/bin/bash
 
+USER_HOME=$(eval echo "~$SUDO_USER")
+
 defaults=("3270" "FiraCode" "Hack" "IntelOneMono" "JetBrainsMono" "Meslo" "SpaceMono")
 deps=("wget" "unzip")
 version=3.3.0
 fontdir=/usr/local/share/fonts
-USER_HOME=$(eval echo ~$SUDO_USER)
 
 help() {
 	echo "Font Installer Script"
