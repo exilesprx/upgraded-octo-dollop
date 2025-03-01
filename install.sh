@@ -2,7 +2,7 @@
 
 defaults=("3270" "FiraCode" "Hack" "IntelOneMono" "JetBrainsMono" "Meslo" "SpaceMono")
 deps=("wget" "unzip")
-version=3.2.1
+version=3.3.0
 fontdir=/usr/local/share/fonts
 
 help() {
