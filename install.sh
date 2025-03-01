@@ -4,6 +4,7 @@ defaults=("3270" "FiraCode" "Hack" "IntelOneMono" "JetBrainsMono" "Meslo" "Space
 deps=("wget" "unzip")
 version=3.3.0
 fontdir=/usr/local/share/fonts
+USER_HOME=$(eval echo ~$SUDO_USER)
 
 help() {
 	echo "Font Installer Script"
@@ -54,7 +55,7 @@ install_fonts() {
 	printf "Installing fonts %s \n" "${fonts[@]}"
 	for font in "${fonts[@]}"; do
 		if wget -q --spider https://github.com/ryanoasis/nerd-fonts/releases/download/v"$version"/"$font".zip; then
-			wget -O "$HOME"/Downloads/"$font".zip https://github.com/ryanoasis/nerd-fonts/releases/download/v"$version"/"$font".zip
+			wget -O "$USER_HOME"/Downloads/"$font".zip https://github.com/ryanoasis/nerd-fonts/releases/download/v"$version"/"$font".zip
 		else
 			printf "Font %s not found \n" "$font"
 			continue
@@ -64,8 +65,8 @@ install_fonts() {
 			echo "Removing existing directory $fontdir/$font"
 			rm -rf "${fontdir:?Font directory is required}"/"${font:?Font is required}"
 		fi
-		unzip "$HOME"/Downloads/"$font".zip -d "$fontdir"/"$font"/
-		rm -f "$HOME"/Downloads/"$font".zip
+		unzip "$USER_HOME"/Downloads/"$font".zip -d "$fontdir"/"$font"/
+		rm -f "$USER_HOME"/Downloads/"$font".zip
 	done
 }
 
