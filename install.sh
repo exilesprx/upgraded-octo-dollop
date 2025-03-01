@@ -84,17 +84,16 @@ check_user() {
 }
 
 main() {
-	if [[ $# -eq 0 ]]; then
-		help
-		exit 1
-	fi
-
 	while [[ $# -gt 0 ]]; do
 		case "$1" in
 		-h | --help)
 			help
 			exit 0
 			;;
+    -d)
+      echo "Defaults: ${defaults[*]}"
+      exit 1
+      ;;
 		-*)
 			echo "Unknown option: $1"
 			help
